@@ -1,139 +1,293 @@
-.hero-section, .hero-section * {
-  font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+/* Elimina estilos heredados de hero-section y elementos médicos */
+.hero-section, .hero-section *, .logo, .nav-menu, .nav-menu a, .find-doctors-btn, .appointment-btn, .doctors-img, .doctor-img, .icon, .icon-stethoscope, .icon-heart, .hero-content, .hero-content .subtitle, .hero-content h1, .hero-content p, .hero-right {
+  display: none !important;
+  height: 0 !important;
+  width: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: none !important;
 }
 
-.hero-section {
-  display: flex;
-  min-height: 80vh;
-  background: #f8fbff;
-}
-
-.hero-left {
-  flex: 1;
-  padding: 60px 40px 40px 80px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-
-.logo {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #2a7be4;
-  margin-bottom: 20px;
-}
-
-.nav-menu {
-  display: flex;
-  gap: 24px;
-  margin-bottom: 40px;
-}
-
-.nav-menu a {
-  color: #222;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 1rem;
-  transition: color 0.2s;
-}
-
-.nav-menu a:hover {
-  color: #2a7be4;
-}
-
-.hero-content .subtitle {
-  color: #2a7be4;
-  font-size: 1rem;
-  letter-spacing: 2px;
-  font-weight: 600;
-}
-
-.hero-content h1 {
-  font-size: 3rem;
-  font-weight: bold;
-  margin: 10px 0 20px 0;
-  line-height: 1.1;
-}
-
-.hero-content p {
-  color: #666;
-  font-size: 1.1rem;
-  margin-bottom: 30px;
-  max-width: 400px;
-}
-
-.find-doctors-btn {
-  background: #2a7be4;
-  color: #fff;
-  border: none;
-  padding: 14px 32px;
-  border-radius: 24px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.find-doctors-btn:hover {
-  background: #1861b3;
-}
-
-.hero-right {
-  flex: 1;
-  background: linear-gradient(135deg, #2a7be4 60%, #f8fbff 100%);
-  border-bottom-left-radius: 120px;
+.espiritu-main-bg {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #111 0%, #f8f6f0 100%);
+  padding: 0;
   position: relative;
+}
+
+.espiritu-main-bg::before {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  width: 700px;
+  height: 500px;
+  background: radial-gradient(circle, #fff8 0%, #f8f6f000 80%);
+  transform: translateX(-50%);
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(2px) brightness(1.1);
+}
+
+.espiritu-flex-container, .espiritu-left, .espiritu-right {
+  position: relative;
+  z-index: 1;
+}
+
+.espiritu-flex-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 48px;
+}
+
+.espiritu-left, .espiritu-right {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  padding: 40px 0 0 0;
-  min-height: 80vh;
 }
 
-.appointment-btn {
-  position: absolute;
-  top: 32px;
-  right: 48px;
-  background: #fff;
-  color: #2a7be4;
-  padding: 10px 28px;
-  border-radius: 20px;
-  font-weight: 600;
-  box-shadow: 0 2px 8px rgba(42,123,228,0.08);
-  font-size: 1rem;
+.espiritu-header {
+  border-left: 6px solid #111;
+  padding-left: 18px;
 }
 
-.doctors-img {
+.espiritu-title {
+  color: #111;
+  text-shadow: 0 2px 8px #f8f6f099;
+  font-size: 2.3rem;
   display: flex;
-  gap: 20px;
-  margin-top: 80px;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 0.2em;
 }
 
-.doctor-img {
-  width: 120px;
-  height: 160px;
-  border-radius: 32px;
-  object-fit: cover;
-  box-shadow: 0 4px 24px rgba(42,123,228,0.12);
-  border: 4px solid #fff;
+.espiritu-title-icon {
+  font-size: 2.2rem;
+  color: #111;
+  background: #f8f6f0;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px #1112;
+  padding: 6px;
 }
 
-.icon {
-  position: absolute;
+.espiritu-title-sub {
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: #888;
+}
+
+.espiritu-desc {
+  color: #444;
+  font-size: 1.1rem;
+  margin-bottom: 18px;
+}
+
+.espiritu-highlight {
+  color: #111;
+  background: #f8f6f0;
+  border-radius: 6px;
+  padding: 2px 8px;
+  font-weight: 600;
+}
+
+.espiritu-form {
   background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 2px 8px rgba(42,123,228,0.10);
-  padding: 16px;
-  font-size: 2rem;
+  border-radius: 18px;
+  box-shadow: 0 2px 16px #1112;
+  margin-bottom: 18px;
+  padding: 18px 24px 10px 24px;
 }
 
-.icon-stethoscope {
-  left: 30px;
-  top: 180px;
+.espiritu-input-group {
+  display: flex;
+  gap: 12px;
+  align-items: center;
 }
 
-.icon-heart {
-  right: 30px;
-  top: 260px;
+.espiritu-input {
+  background: #f8f6f0;
+  color: #111;
+  border: 1.5px solid #111;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  padding: 10px 16px;
+  flex: 1;
+}
+
+.espiritu-btn {
+  background: linear-gradient(90deg, #111 60%, #f8f6f0 100%);
+  color: #f8f6f0;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #1112;
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding: 10px 22px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.espiritu-btn-graficar {
+  background: linear-gradient(90deg, #111 60%, #f8f6f0 100%);
+  color: #f8f6f0;
+}
+
+.espiritu-btn-eval {
+  background: linear-gradient(90deg, #f8f6f0 0%, #111 100%);
+  color: #111;
+  margin-top: 10px;
+}
+
+.espiritu-graph-section {
+  background: #fff;
+  border-radius: 28px;
+  box-shadow: 0 6px 40px #1112, 0 2px 12px #f8f6f055;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 48px auto 0 auto;
+  width: 720px;
+  max-width: 98vw;
+  min-height: 540px;
+  transition: box-shadow 0.3s;
+  border: 3px solid #111;
+  overflow: hidden;
+}
+
+.espiritu-graph-section:hover {
+  box-shadow: 0 8px 48px #1115, 0 2px 16px #f8f6f099;
+  border-color: #f8f6f0;
+}
+
+.espiritu-cytoscape {
+  width: 700px;
+  height: 500px;
+  max-width: 96vw;
+  max-height: 70vh;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #fff 60%, #f8f6f0 100%);
+  border-radius: 22px;
+  box-shadow: 0 2px 16px #1112;
+  border: none;
+  display: block;
+}
+
+.espiritu-recorridos-section {
+  background: #fff;
+  border-radius: 22px;
+  box-shadow: 0 2px 16px #1112;
+  padding: 48px 40px 40px 40px;
+  margin-top: 32px;
+  min-width: 320px;
+  margin-bottom: 18px;
+}
+
+.espiritu-api-header {
+  color: #111;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.2rem;
+  margin-bottom: 18px;
+}
+
+.espiritu-api-title {
+  color: #111;
+  font-weight: 600;
+}
+
+.espiritu-row {
+  color: #111;
+  font-size: 1.08rem;
+  margin-bottom: 6px;
+}
+
+.espiritu-label {
+  color: #111;
+  font-weight: 600;
+}
+
+.espiritu-value {
+  color: #111;
+}
+
+.espiritu-error {
+  color: #c00;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.espiritu-eval-section {
+  background: #f8f6f0;
+  border-radius: 18px;
+  box-shadow: 0 2px 16px #1112;
+  padding: 32px 28px 24px 28px;
+  margin-bottom: 18px;
+}
+
+.espiritu-eval-title {
+  color: #111;
+  font-size: 1.2rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.espiritu-eval-label {
+  color: #111;
+  font-weight: 500;
+  margin-right: 6px;
+}
+
+.espiritu-eval-var-input {
+  background: #fff;
+  color: #111;
+  border: 1.5px solid #111;
+  border-radius: 8px;
+  font-size: 1.08rem;
+  padding: 6px 12px;
+  margin-bottom: 8px;
+}
+
+.espiritu-eval-resultado {
+  color: #111;
+  font-weight: 600;
+  margin-top: 10px;
+  font-size: 1.1rem;
+}
+
+.espiritu-icon {
+  color: #111;
+  font-size: 1.5rem;
+}
+
+@media (max-width: 1200px) {
+  .espiritu-graph-section {
+    width: 98vw;
+    min-height: 320px;
+    margin: 24px auto 0 auto;
+  }
+  .espiritu-cytoscape {
+    width: 96vw;
+    height: 320px;
+    max-width: 98vw;
+    max-height: 40vh;
+  }
+  .espiritu-flex-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+  .espiritu-recorridos-section {
+    min-width: unset;
+    width: 96vw;
+    padding: 32px 12vw 32px 12vw;
+  }
 }

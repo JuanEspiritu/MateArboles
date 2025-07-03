@@ -1,9 +1,52 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-<div class="hero-section">
-  <div class="hero-left">
-
-  </div>
-  <div class="hero-right">
-   
+<div class="espiritu-main-bg">
+  <div class="espiritu-flex-container">
+    <div class="espiritu-left">
+      <div class="espiritu-header">
+        <h2 class="espiritu-title">
+          <span class="espiritu-title-icon material-icons">psychology_alt</span>
+          Árbol Algebraico <span class="espiritu-title-sub">(Espiritu)</span>
+        </h2>
+        <p class="espiritu-desc">Escribe una expresión y observa su estructura en el grafo <span class="espiritu-highlight">blanco perla y negro</span>.</p>
+      </div>
+      <form class="espiritu-form" (ngSubmit)="obtenerRecorridos()" autocomplete="off">
+        <div class="espiritu-input-group">
+          <input [(ngModel)]="expresion" name="expresion" placeholder="Ej: x^2 + y/3" class="espiritu-input" />
+          <button type="submit" class="espiritu-btn espiritu-btn-graficar">
+            <span class="material-icons">auto_graph</span> Graficar
+          </button>
+        </div>
+      </form>
+      <div class="espiritu-graph-section">
+        <div id="cy-espiritu" class="espiritu-cytoscape"></div>
+      </div>
+    </div>
+    <div class="espiritu-right">
+      <div class="espiritu-recorridos-section">
+        <div class="espiritu-api-header">
+          <span class="material-icons espiritu-icon">account_tree</span>
+          <span class="espiritu-api-title">Recorridos</span>
+        </div>
+        <div *ngIf="error" class="espiritu-error">{{ error }}</div>
+        <div *ngIf="preorden">
+          <div class="espiritu-row"><span class="espiritu-label">Pre:</span> <span class="espiritu-value">{{ preorden }}</span></div>
+          <div class="espiritu-row"><span class="espiritu-label">In:</span> <span class="espiritu-value">{{ inorden }}</span></div>
+          <div class="espiritu-row"><span class="espiritu-label">Post:</span> <span class="espiritu-value">{{ postorden }}</span></div>
+        </div>
+      </div>
+      <div *ngIf="variables.length > 0" class="espiritu-eval-section">
+        <div class="espiritu-eval-title"><span class="material-icons">calculate</span> Evaluar</div>
+        <form (ngSubmit)="evaluarExpresion()" autocomplete="off">
+          <div class="espiritu-eval-inputs">
+            <div *ngFor="let v of variables" class="espiritu-eval-var-row">
+              <label class="espiritu-eval-label">{{ v }} = </label>
+              <input type="number" [(ngModel)]="valoresVars[v]" name="valor_{{v}}" class="espiritu-eval-var-input" required />
+            </div>
+          </div>
+          <button type="submit" class="espiritu-btn espiritu-btn-eval"><span class="material-icons">done</span> Evaluar</button>
+        </form>
+        <div *ngIf="resultadoEvaluacion" class="espiritu-eval-resultado">{{ resultadoEvaluacion }}</div>
+      </div>
     </div>
   </div>
+</div>

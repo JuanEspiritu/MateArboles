@@ -1,9 +1,223 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-<div class="hero-section">
-  <div class="hero-left">
-
-  </div>
-  <div class="hero-right">
-   
+<div class="cardenas-main-bg">
+  <div class="cardenas-flex-container">
+    <div class="cardenas-left">
+      <div class="cardenas-header">
+        <h2 class="cardenas-title">Árbol Algebraico (Cardenas)</h2>
+        <p class="cardenas-desc">Escribe una expresión y observa su estructura en el grafo neón.</p>
+      </div>
+      <form class="cardenas-form" (ngSubmit)="obtenerRecorridos()" autocomplete="off">
+        <input [(ngModel)]="expresion" name="expresion" placeholder="Ej: x^2 + y/3" class="cardenas-input" />
+        <button type="submit" class="cardenas-btn">Graficar</button>
+      </form>
+      <div class="cardenas-graph-section">
+        <div id="cy-cardenas" class="cardenas-cytoscape"></div>
+      </div>
+    </div>
+    <div class="cardenas-right">
+      <div class="cardenas-recorridos-section">
+        <div class="cardenas-api-header">
+          <span class="material-icons cardenas-icon">account_tree</span>
+          <span class="cardenas-api-title">Recorridos</span>
+        </div>
+        <div *ngIf="error" class="cardenas-error">{{ error }}</div>
+        <div *ngIf="preorden">
+          <div class="cardenas-row"><span class="cardenas-label">Pre:</span> <span class="cardenas-value">{{ preorden }}</span></div>
+          <div class="cardenas-row"><span class="cardenas-label">In:</span> <span class="cardenas-value">{{ inorden }}</span></div>
+          <div class="cardenas-row"><span class="cardenas-label">Post:</span> <span class="cardenas-value">{{ postorden }}</span></div>
+        </div>
+      </div>
+      <div *ngIf="variables.length > 0" class="cardenas-eval-section">
+        <div class="cardenas-eval-title">Evaluar</div>
+        <form (ngSubmit)="evaluarExpresion()" autocomplete="off">
+          <div class="cardenas-eval-inputs">
+            <div *ngFor="let v of variables" class="cardenas-eval-var-row">
+              <label class="cardenas-eval-label">{{ v }} = </label>
+              <input type="number" [(ngModel)]="valoresVars[v]" name="valor_{{v}}" class="cardenas-eval-var-input" required />
+            </div>
+          </div>
+          <button type="submit" class="cardenas-btn cardenas-btn-eval">Evaluar</button>
+        </form>
+        <div *ngIf="resultadoEvaluacion" class="cardenas-eval-resultado">{{ resultadoEvaluacion }}</div>
+      </div>
     </div>
   </div>
+</div>
+
+<style>
+.cardenas-main-bg {
+  min-height: 100vh;
+  background: radial-gradient(circle at 60% 30%, #2d0036 0%, #4a003c 50%, #8e24aa 80%, #ff1744 100%);
+  padding: 0;
+  position: relative;
+}
+.cardenas-main-bg::before {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  width: 700px;
+  height: 500px;
+  background: radial-gradient(circle, #fff4 0%, #2d003600 80%);
+  transform: translateX(-50%);
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(2px) brightness(1.2);
+}
+.cardenas-flex-container, .cardenas-left, .cardenas-right {
+  position: relative;
+  z-index: 1;
+}
+.cardenas-flex-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 48px;
+}
+.cardenas-left, .cardenas-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Paleta principal: rojo intenso y morado oscuro */
+.cardenas-title {
+  color: #b71c1c;
+  text-shadow: 0 2px 8px #3a003a99;
+}
+.cardenas-desc {
+  color: #a188a6;
+}
+.cardenas-form {
+  background: #3a003a;
+  border-radius: 18px;
+  box-shadow: 0 2px 16px #b71c1c33;
+}
+.cardenas-input {
+  background: #5a174e;
+  color: #fff;
+  border: 1.5px solid #b71c1c;
+  border-radius: 8px;
+}
+.cardenas-btn {
+  background: linear-gradient(90deg, #b71c1c 60%, #7c1e5a 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #b71c1c55;
+  font-weight: 600;
+}
+.cardenas-btn-eval {
+  background: linear-gradient(90deg, #7c1e5a 0%, #b71c1c 100%);
+}
+.cardenas-graph-section {
+  background: #2a002a;
+  border-radius: 28px;
+  box-shadow: 0 6px 40px #b71c1c33, 0 2px 12px #8e24aa55;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 48px auto 0 auto;
+  width: 720px;
+  max-width: 98vw;
+  min-height: 540px;
+  transition: box-shadow 0.3s;
+  border: 3px solid #4a003c;
+  overflow: hidden;
+}
+.cardenas-cytoscape {
+  width: 700px;
+  height: 500px;
+  max-width: 96vw;
+  max-height: 70vh;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #2a002a 60%, #4a003c 100%);
+  border-radius: 22px;
+  box-shadow: 0 2px 16px #7c1e5a55;
+  border: none;
+  display: block;
+}
+.cardenas-recorridos-section {
+  background: #3a003a;
+  border-radius: 22px;
+  box-shadow: 0 2px 16px #b71c1c33;
+  padding: 40px 36px 36px 36px;
+  margin-top: 32px;
+  min-width: 320px;
+}
+.cardenas-api-header {
+  color: #b71c1c;
+}
+.cardenas-api-title {
+  color: #fff;
+}
+.cardenas-row {
+  color: #fff;
+}
+.cardenas-label {
+  color: #b71c1c;
+}
+.cardenas-value {
+  color: #fff;
+}
+.cardenas-error {
+  color: #ff5252;
+}
+.cardenas-eval-section {
+  background: #2a002a;
+  border-radius: 18px;
+  box-shadow: 0 2px 16px #b71c1c33;
+}
+.cardenas-eval-title {
+  color: #b71c1c;
+}
+.cardenas-eval-label {
+  color: #fff;
+}
+.cardenas-eval-var-input {
+  background: #5a174e;
+  color: #fff;
+  border: 1.5px solid #b71c1c;
+  border-radius: 8px;
+}
+.cardenas-eval-resultado {
+  color: #b71c1c;
+  font-weight: 600;
+}
+
+/* Detalles visuales únicos */
+.cardenas-header {
+  border-left: 6px solid #b71c1c;
+  padding-left: 18px;
+}
+.cardenas-icon {
+  color: #b71c1c;
+}
+
+@media (max-width: 900px) {
+  .cardenas-main-bg {
+    background: radial-gradient(circle at 50% 20%, #3a003a 0%, #7c1e5a 60%, #b71c1c 100%);
+  }
+  .cardenas-graph-section {
+    width: 98vw;
+    min-height: 320px;
+    margin: 24px auto 0 auto;
+  }
+  .cardenas-cytoscape {
+    width: 96vw;
+    height: 320px;
+    max-width: 98vw;
+    max-height: 40vh;
+  }
+  .cardenas-flex-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+  .cardenas-recorridos-section {
+    min-width: unset;
+    width: 96vw;
+    padding: 32px 12vw 32px 12vw;
+  }
+}
+</style>

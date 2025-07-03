@@ -1,9 +1,97 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-<div class="hero-section">
-  <div class="hero-left">
-
+<div class="hero-section glass-bg">
+  <div class="hero-right glass-card">
+    <div class="hero-header">
+      <h1 class="main-title">Visualizador de Árboles de Expresiones</h1>
+      <p class="subtitle">Ingresa una expresión matemática y explora su árbol sintáctico y recorridos</p>
+    </div>
+    <div class="input-bar input-bar-hero">
+      <input [(ngModel)]="expresion" name="expresion" placeholder="Ej: (a+b)*c" class="input-expresion input-azul input-shadow" />
+      <button (click)="obtenerRecorridos()" class="find-doctors-btn azul btn-shadow">Resolver</button>
+    </div>
+    <div id="cy" class="cytoscape-box glass-card"></div>
   </div>
-  <div class="hero-right">
-   
+  <div class="respuestas-api card-respuestas glass-card">
+    <div class="api-header">
+      <span class="material-icons icon-gradient">account_tree</span>
+      <span class="api-title">Recorridos del Árbol</span>
+    </div>
+    <div *ngIf="error" class="error error-card">{{ error }}</div>
+    <div *ngIf="preorden">
+      <div class="recorrido-row"><span class="recorrido-label">Preorden:</span> <span class="recorrido-value">{{ preorden }}</span></div>
+      <div class="recorrido-row"><span class="recorrido-label">Inorden:</span> <span class="recorrido-value">{{ inorden }}</span></div>
+      <div class="recorrido-row"><span class="recorrido-label">Postorden:</span> <span class="recorrido-value">{{ postorden }}</span></div>
+    </div>
+    <div *ngIf="variables.length > 0" class="evaluar-section">
+      <div class="evaluar-title">Evaluar expresión</div>
+      <form (ngSubmit)="evaluarExpresion()" autocomplete="off">
+        <div class="evaluar-inputs">
+          <div *ngFor="let v of variables" class="evaluar-var-row">
+            <label class="evaluar-label">{{ v }} = </label>
+            <input type="number" [(ngModel)]="valoresVars[v]" name="valor_{{v}}" class="evaluar-var-input" required />
+          </div>
+        </div>
+        <button type="submit" class="find-doctors-btn azul btn-shadow" style="margin-top:12px;">Evaluar</button>
+      </form>
+      <div *ngIf="resultadoEvaluacion" class="evaluar-resultado">{{ resultadoEvaluacion }}</div>
     </div>
   </div>
+</div>
+<style>
+.evaluar-section {
+  margin-top: 24px;
+  padding: 18px 12px 10px 12px;
+  background: rgba(42,123,228,0.07);
+  border-radius: 18px;
+  box-shadow: 0 2px 8px #2a7be422;
+}
+.evaluar-title {
+  font-size: 1.18rem;
+  font-weight: 600;
+  color: #2a7be4;
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+.evaluar-inputs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  margin-bottom: 8px;
+}
+.evaluar-var-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.evaluar-label {
+  color: #1861b3;
+  font-weight: 500;
+  font-size: 1.08rem;
+}
+.evaluar-var-input {
+  border: 1.5px solid #2a7be4;
+  border-radius: 10px;
+  padding: 6px 14px;
+  font-size: 1.08rem;
+  width: 90px;
+  background: #f8fbff;
+  color: #2a7be4;
+  outline: none;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+.evaluar-var-input:focus {
+  border-color: #1861b3;
+  box-shadow: 0 0 0 2px #2a7be433;
+}
+.evaluar-resultado {
+  margin-top: 10px;
+  font-size: 1.13rem;
+  color: #1b5e20;
+  font-weight: 600;
+  background: #e8f5e9;
+  border-radius: 10px;
+  padding: 8px 14px;
+  box-shadow: 0 2px 8px #43a04722;
+}
+</style>
+

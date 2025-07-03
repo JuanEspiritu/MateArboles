@@ -1,9 +1,68 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-<div class="hero-section">
-  <div class="hero-left">
-
-  </div>
-  <div class="hero-right">
-   
+<div class="hero-section ramirez-main-bg">
+  <div class="hero-left ramirez-left">
+    <div class="ramirez-header">
+      <h2 class="ramirez-title">Árbol de Expresión (Ramirez)</h2>
+      <p class="ramirez-desc">Introduce tu expresión algebraica y explora su árbol y recorridos.</p>
+    </div>
+    <form class="ramirez-form" (ngSubmit)="obtenerRecorridos()" autocomplete="off">
+      <input [(ngModel)]="expresion" name="expresion" placeholder="Ej: (a+b)*c" class="ramirez-input" />
+      <button type="submit" class="ramirez-btn">Ver árbol</button>
+    </form>
+    <div class="ramirez-graph-section">
+      <div id="cy-ramirez" class="ramirez-cytoscape"></div>
     </div>
   </div>
+  <div class="hero-right ramirez-right">
+    <div class="ramirez-recorridos-section">
+      <div class="ramirez-api-header">
+        <span class="material-icons ramirez-icon">account_tree</span>
+        <span class="ramirez-api-title">Recorridos</span>
+      </div>
+      <div *ngIf="error" class="ramirez-error">{{ error }}</div>
+      <div *ngIf="preorden">
+        <div class="ramirez-row"><span class="ramirez-label">Preorden:</span> <span class="ramirez-value">{{ preorden }}</span></div>
+        <div class="ramirez-row"><span class="ramirez-label">Inorden:</span> <span class="ramirez-value">{{ inorden }}</span></div>
+        <div class="ramirez-row"><span class="ramirez-label">Postorden:</span> <span class="ramirez-value">{{ postorden }}</span></div>
+      </div>
+    </div>
+    <div *ngIf="variables.length > 0" class="ramirez-eval-section">
+      <div class="ramirez-eval-title">Evaluar expresión</div>
+      <form (ngSubmit)="evaluarExpresion()" autocomplete="off">
+        <div class="ramirez-eval-inputs">
+          <div *ngFor="let v of variables" class="ramirez-eval-var-row">
+            <label class="ramirez-eval-label">{{ v }} = </label>
+            <input type="number" [(ngModel)]="valoresVars[v]" name="valor_{{v}}" class="ramirez-eval-var-input" required />
+          </div>
+        </div>
+        <button type="submit" class="ramirez-btn ramirez-btn-eval">Evaluar</button>
+      </form>
+      <div *ngIf="resultadoEvaluacion" class="ramirez-eval-resultado">{{ resultadoEvaluacion }}</div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .ramirez-main-bg {
+  min-height: 100vh;
+  background: radial-gradient(circle at 60% 30%, #ffe0f0 0%, #f8bbd0 60%, #ec407a 100%);
+  padding: 0;
+  position: relative;
+}
+.ramirez-main-bg::before {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  width: 600px;
+  height: 400px;
+  background: radial-gradient(circle, #fff7 0%, #ffe0f000 80%);
+  transform: translateX(-50%);
+  z-index: 0;
+  pointer-events: none;
+}
+.ramirez-flex-container, .ramirez-left, .ramirez-right {
+  position: relative;
+  z-index: 1;
+}
+</style>
