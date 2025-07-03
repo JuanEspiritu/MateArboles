@@ -1,0 +1,116 @@
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(90deg, #2196f3 0%, #0d47a1 100%);
+  padding: 18px 40px;
+  box-shadow: 0 4px 24px rgba(33, 150, 243, 0.12);
+  border-radius: 0 0 24px 24px;
+  position: relative;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  width: 100%;
+}
+
+.logo {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 2px;
+  font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+  background: linear-gradient(90deg, #fff 30%, #fff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.logo2 {
+  position: absolute;
+  top: 18px;
+  right: 48px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(33, 150, 243, 0.15);
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo2 img {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.logo2 img:hover {
+  transform: scale(1.08) rotate(-3deg);
+  box-shadow: 0 4px 24px #fff;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 48px;
+  margin: 0 0 0 80px;
+  padding: 0;
+  background: rgba(255,255,255,0.08);
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(33,150,243,0.07);
+}
+
+.nav-links li {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links a {
+  color: #e3f2fd;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.08rem;
+  padding: 10px 22px;
+  border-radius: 12px;
+  transition: 
+    background 0.2s,
+    color 0.2s,
+    box-shadow 0.2s;
+  letter-spacing: 1px;
+}
+
+.nav-links a:hover,
+.nav-links li a.active {
+  background: linear-gradient(90deg, #64b5f6 30%, #1976d2 100%);
+  color: #0d1333;
+  box-shadow: 0 2px 12px rgba(33,150,243,0.15);
+  font-weight: 700;
+  text-shadow: 0 1px 4px #fff8;
+}
+
+@media (max-width: 900px) {
+  .navbar {
+    flex-direction: column;
+    padding: 16px 10px;
+  }
+  .navbar-left {
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+  }
+  .nav-links {
+    margin-left: 0;
+    gap: 20px;
+    padding: 6px 10px;
+  }
+  .logo2 {
+    position: static;
+    margin-top: 12px;
+  }
+}

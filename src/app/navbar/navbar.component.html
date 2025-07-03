@@ -1,1 +1,18 @@
-<p>navbar works!</p>
+<nav class="navbar">
+    <div class="navbar-left">
+        <span class="logo"><i class="pi pi-slack"></i> Gafitos</span>
+        <ul class="nav-links" style="margin-left: 5rem;">
+            <li><a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+            </li>
+            <li><a routerLink="/cardenas" routerLinkActive="active">Cardenas</a></li>
+            <li><a routerLink="/espiritu" routerLinkActive="active">Espiritu</a></li>
+            <li><a routerLink="/godoy" routerLinkActive="active">Godoy</a></li>
+            <li><a routerLink="/meza" routerLinkActive="active">Meza</a></li>
+            <li><a routerLink="/ramirez" routerLinkActive="active">Ramirez</a></li>
+            <li><a routerLink="/veli" routerLinkActive="active">Veli</a></li>
+        </ul>
+        <div class="logo2">
+            <img src="frontend.jpeg" alt="Logo" />
+        </div>
+    </div>
+</nav>

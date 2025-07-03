@@ -2,10 +2,12 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-navbar',
+  selector: 'app-cardenas',
   standalone: true,
   imports: [RouterModule],
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  templateUrl: './cardenas.component.html',
+  styleUrl: './cardenas.component.css'
 })
-export class NavbarComponent { }
+export class CardenasComponent {
+
+}
